@@ -38,11 +38,11 @@
 from sentence_transformers import SentenceTransformer, util
 
 # טוענים מודל שתומך בעברית
-model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+model = SentenceTransformer(r"C:\Users\kuperbergz\PycharmProjects\CleverCheck\server\my_model")
 
 # תשובה של התלמיד ותשובה נכונה
 student_answer = "השמש זורחת במזרח"
-correct_answer = "הכיוון של זריחת השמש הוא מהמזרח"
+correct_answer = "הכיוון של זריחת השמש הוא ממערב"
 
 # 1. יצירת Embeddings
 emb1 = model.encode(student_answer, convert_to_tensor=True)

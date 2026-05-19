@@ -56,6 +56,7 @@ for case in test_cases:
     print(f"ציון:           {result['score']}")
     print(f"סטטוס:          {result['status']}")
     print(f"מושגים שחולצו: {result['key_concepts']}")
+    print(f"מושגים שכוסו:  {result['covered']}")
     print(f"מושגים חסרים:  {result['missing']}")
     print(f"שלילה:          {result['has_negation']}")
     print(f"בדיקת מורה:    {result['needs_review']}")

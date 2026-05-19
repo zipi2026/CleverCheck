@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # ── הרכבת Connection String ──────────────────────────────────
 _SERVER   = os.getenv('DB_SERVER',   r'localhost\SQLEXPRESS')
-_DATABASE = os.getenv('DB_NAME',     'CleverCheck')
+_DATABASE = os.getenv('DB_NAME',     'CleverCheckDB')
 _DRIVER   = os.getenv('DB_DRIVER',   'ODBC+Driver+17+for+SQL+Server')
 
 DATABASE_URL = (
@@ -59,3 +59,6 @@ def health_check() -> bool:
     except Exception as exc:
         logger.error(f"DB health check failed: {exc}")
         return False
+
+
+

@@ -106,3 +106,4 @@ def register_routes(grading_service):
             return jsonify({"error": "שגיאה בשליפת תוצאה"}), 500
 
     return grading_bp
+

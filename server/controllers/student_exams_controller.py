@@ -13,6 +13,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 repo = StudentExamRepository(session)
+
 service = StudentExamService(repo)
 
 student_exams_blueprint = Blueprint('student_exams', __name__)

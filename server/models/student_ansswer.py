@@ -1,10 +1,7 @@
-from sqlalchemy import (
-    Column, Integer, Float, String,
-    ForeignKey, Text, CheckConstraint
-)
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 
-from models.base import Base
+Base = declarative_base()
 
 
 class StudentAnswer(Base):

@@ -1,11 +1,14 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class QuestionDTO:
-    question_id: int
-    question_number: int
-    exam_id: int
-    question_text: str
-    question_type_id: int
-    max_score: float
+    def __init__(
+        self,
+        QuestionNumber: int,
+        ExamID: int,
+        QuestionText: str,
+        QuestionTypeID: int,
+        MaxScore: float
+    ):
+        self.QuestionNumber = QuestionNumber
+        self.ExamID = ExamID
+        self.QuestionText = QuestionText
+        self.QuestionTypeID = QuestionTypeID
+        self.MaxScore = MaxScore

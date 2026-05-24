@@ -1,11 +1,7 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class TeacherDTO:
-    teacher_id: int
-    first_name: str
-    last_name: str
-    email: str
-    is_active: bool
-    role: str
+    def __init__(self, FirstName: str, LastName: str, Email: str, IsActive: bool, Role: str):
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Email = Email
+        self.IsActive = IsActive
+        self.Role = Role

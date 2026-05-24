@@ -1,10 +1,6 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class StudentDTO:
-    student_id: int
-    first_name: str
-    last_name: str
-    class_id: int
-    is_active: bool
+    def __init__(self, FirstName: str, LastName: str, ClassID: int, IsActive: bool):
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.ClassID = ClassID
+        self.IsActive = IsActive

@@ -1,7 +1,3 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class QuestionTypeDTO:
-    question_type_id: int
-    type_name: str
+    def __init__(self, TypeName: str):
+        self.TypeName = TypeName

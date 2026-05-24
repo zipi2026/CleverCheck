@@ -1,13 +1,17 @@
-from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional
 
 
-@dataclass
 class StudentExamDTO:
-    student_exam_id: int
-    exam_id: int
-    student_id: int
-    start_time: Optional[datetime]
-    end_time: Optional[datetime]
-    score: Optional[float]
+    def __init__(
+        self,
+        ExamID: int,
+        StudentID: int,
+        StartTime: datetime = None,
+        EndTime: datetime = None,
+        Score: float = None
+    ):
+        self.ExamID = ExamID
+        self.StudentID = StudentID
+        self.StartTime = StartTime
+        self.EndTime = EndTime
+        self.Score = Score

@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from server.models.base import Base
 from server.dtos.class_dto import ClassDTO
 from server.services.class_service import ClassService
 from server.repositories.class_repository import ClassRepository
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from server.models.classes import Base
 
 engine = create_engine('mssql+pyodbc://localhost/CleverCheckDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes')
 Base.metadata.create_all(engine)
@@ -17,28 +17,28 @@ service = ClassService(repo)
 classes_blueprint = Blueprint('classes', __name__)
 
 @classes_blueprint.route('', methods=['POST'])
-def add():
+def add_class():
     dto = ClassDTO(**request.get_json())
-    service.add(dto)
+    service.add_class(dto)
     return jsonify({'message': 'Class added'}), 201
 
 @classes_blueprint.route('', methods=['GET'])
-def get_all():
-    data = service.get_all()
+def get_classes():
+    data = service.get_all_classes()
     return jsonify([{'id': x.ClassID, 'name': x.ClassName} for x in data])
 
-@classes_blueprint.route('/<int:id>', methods=['GET'])
-def get_by_id(id):
-    x = service.get_by_id(id)
+@classes_blueprint.route('/<int:class_id>', methods=['GET'])
+def get_class(class_id):
+    x = service.get_class_by_id(class_id)
     return jsonify({'id': x.ClassID, 'name': x.ClassName})
 
-@classes_blueprint.route('/<int:id>', methods=['PUT'])
-def update(id):
+@classes_blueprint.route('/<int:class_id>', methods=['PUT'])
+def update_class(class_id):
     dto = ClassDTO(**request.get_json())
-    service.update(id, dto)
+    service.update_class(class_id, dto)
     return jsonify({'message': 'Class updated'})
 
-@classes_blueprint.route('/<int:id>', methods=['DELETE'])
-def delete(id):
-    service.delete(id)
+@classes_blueprint.route('/<int:class_id>', methods=['DELETE'])
+def delete_class(class_id):
+    service.delete_class(class_id)
     return jsonify({'message': 'Class deleted'})

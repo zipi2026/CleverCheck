@@ -1,4 +1,4 @@
-from server.models.class_model import Class
+from server.models.classes import Class
 from sqlalchemy.orm import Session
 
 class ClassRepository:

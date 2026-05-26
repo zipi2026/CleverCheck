@@ -1,4 +1,4 @@
-from server.models.question_type import QuestionType
+from server.models.question_types import QuestionType
 from sqlalchemy.orm import Session
 
 class QuestionTypeRepository:

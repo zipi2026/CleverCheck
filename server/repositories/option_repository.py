@@ -1,4 +1,4 @@
-from server.models.option import Option
+from server.models.options import Option
 from sqlalchemy.orm import Session
 
 class OptionRepository:

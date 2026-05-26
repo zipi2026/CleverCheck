@@ -23,8 +23,8 @@ sys.modules['sentence_transformers'] = st_stub
 sys.modules['sentence_transformers.util'] = st_stub.util
 
 # עכשיו בטוח לייבא
-from dtos.dtos import GradeRequestDTO, ConceptEvaluationDTO
-from exceptions.exceptions import ValidationError, GradingError, ModelNotFoundError
+from server.dtos.dtos import GradeRequestDTO, ConceptEvaluationDTO
+from server.exceptions.exceptions import ValidationError, GradingError, ModelNotFoundError
 
 
 # ══════════════════════════════════════════════════════════════
@@ -34,7 +34,7 @@ class TestHebrewHelpers:
 
     def setup_method(self):
         # ייבוא מאוחר אחרי stub
-        from services import grading_service as gs
+        from server.services import grading_service as gs
         self.gs = gs
 
     def test_clean_word_removes_punctuation(self):
@@ -116,7 +116,7 @@ class TestGradingService:
             mock_util.cos_sim.return_value = mock_tensor
             mock_get_model.return_value.encode.return_value = MagicMock()
 
-            from services.grading_service import GradingService
+            from server.services.grading_service import GradingService
             return GradingService(repo), repo
 
     def test_all_concepts_found(self):
@@ -136,7 +136,7 @@ class TestGradingService:
             mu.cos_sim.return_value.max.return_value = (max_tensor, idx_tensor)
             mgm.return_value.encode.return_value = MagicMock()
 
-            from services.grading_service import GradingService
+            from server.services.grading_service import GradingService
             svc = GradingService(repo)
             dto = GradeRequestDTO(
                 submission_id=1,
@@ -155,7 +155,7 @@ class TestGradingService:
 
         with patch('services.grading_service.get_model'), \
              patch('services.grading_service.util'):
-            from services.grading_service import GradingService
+            from server.services.grading_service import GradingService
             svc = GradingService(repo)
             dto = GradeRequestDTO(1, "תשובה כלשהי", [])
             result = svc.grade(dto)
@@ -165,7 +165,7 @@ class TestGradingService:
         repo = MagicMock()
         with patch('services.grading_service.get_model',
                    side_effect=ModelNotFoundError("לא נמצא")):
-            from services.grading_service import GradingService
+            from server.services.grading_service import GradingService
             svc = GradingService(repo)
             dto = GradeRequestDTO(1, "תשובה", ["מושג"])
             with pytest.raises(ModelNotFoundError):
@@ -206,7 +206,7 @@ class TestDTOs:
 class TestValidation:
 
     def setup_method(self):
-        from controllers.grading_controller import _validate
+        from server.controllers.grading_controller import _validate
         self.validate = _validate
 
     def test_valid_input_passes(self):

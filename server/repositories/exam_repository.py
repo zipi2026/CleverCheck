@@ -1,4 +1,4 @@
-from server.models.exam import Exam
+from server.models.exams import Exam
 from sqlalchemy.orm import Session
 
 class ExamRepository:

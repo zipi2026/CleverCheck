@@ -1,4 +1,4 @@
-from server.models.teacher import Teacher
+from server.models.teachers import Teacher
 from sqlalchemy.orm import Session
 
 class TeacherRepository:

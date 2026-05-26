@@ -1,4 +1,4 @@
-from server.models.question import Question
+from server.models.questions import Question
 from sqlalchemy.orm import Session
 
 class QuestionRepository:

@@ -1,4 +1,4 @@
-from server.models.student_Exams import StudentExam
+from server.models.student_exams import StudentExam
 from sqlalchemy.orm import Session
 
 class StudentExamRepository:

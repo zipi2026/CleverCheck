@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from server.dtos.exam_dto import ExamDTO
+from server.dtos.exams_dto import ExamDTO
 from server.services.exam_service import ExamService
 from server.repositories.exam_repository import ExamRepository
 from sqlalchemy import create_engine

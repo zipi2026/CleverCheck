@@ -3,9 +3,9 @@ repositories/grading_repository.py — גישה למסד הנתונים
 """
 import logging
 from sqlalchemy.orm import Session
-from models.models import GradingResult, ConceptEvaluation
-from dtos.dtos import ConceptEvaluationDTO, GradeResponseDTO
-from exceptions.exceptions import DatabaseError
+from server.models.models import GradingResult, ConceptEvaluation
+from server.dtos.dtos import ConceptEvaluationDTO, GradeResponseDTO
+from server.exceptions.exceptions import DatabaseError
 
 logger = logging.getLogger(__name__)
 

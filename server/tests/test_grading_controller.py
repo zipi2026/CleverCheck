@@ -22,11 +22,11 @@ sys.modules['sentence_transformers.util'] = st_stub.util
 
 def _build_app(mock_service):
     """בונה Flask app עם Blueprint חדש לכל קריאה."""
-    from dtos.dtos import GradeResponseDTO, ConceptEvaluationDTO
-    from exceptions.exceptions import (
+    from server.dtos.dtos import GradeResponseDTO, ConceptEvaluationDTO
+    from server.exceptions.exceptions import (
         ValidationError, GradingError, DatabaseError, ModelNotFoundError
     )
-    from controllers.grading_controller import _validate
+    from server.controllers.grading_controller import _validate
 
     app = Flask(__name__)
     app.config['TESTING'] = True
@@ -64,7 +64,7 @@ def _build_app(mock_service):
 
 @pytest.fixture
 def client():
-    from dtos.dtos import GradeResponseDTO, ConceptEvaluationDTO
+    from server.dtos.dtos import GradeResponseDTO, ConceptEvaluationDTO
 
     mock_service = MagicMock()
     mock_service.grade.return_value = GradeResponseDTO(
@@ -138,7 +138,7 @@ class TestGradeEndpoint:
         assert resp.status_code == 400
 
     def test_service_exception_returns_500(self, client):
-        from exceptions.exceptions import GradingError
+        from server.exceptions.exceptions import GradingError
         c, mock_service = client
         mock_service.grade.side_effect = GradingError("שגיאה פנימית")
         resp = c.post('/api/grade', json={

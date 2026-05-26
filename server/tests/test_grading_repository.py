@@ -6,10 +6,10 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from models.models import Base, GradingResult, ConceptEvaluation
-from dtos.dtos import ConceptEvaluationDTO
-from repositories.grading_repository import GradingRepository
-from exceptions.exceptions import DatabaseError
+from server.models.models import Base, GradingResult, ConceptEvaluation
+from server.dtos.dtos import ConceptEvaluationDTO
+from server.repositories.grading_repository import GradingRepository
+from server.exceptions.exceptions import DatabaseError
 
 
 @pytest.fixture

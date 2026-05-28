@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from server.db.base import Base
 
-Base = declarative_base()
+#Base = declarative_base()
 
 class Option(Base):
     """אפשרות תשובה לשאלה סגורה (Multiple Choice)."""

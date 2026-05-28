@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from server.db.base import Base
 
-Base = declarative_base()
+#Base = declarative_base()
 
 
 class Teacher(Base):

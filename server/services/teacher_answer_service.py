@@ -5,33 +5,33 @@ class TeacherAnswerService:
     def __init__(self, repo):
         self.repo = repo
 
-    def add_teacheranswer(self, dto):
+    def add_teacher_answer(self, dto):
         self.repo.add(TeacherAnswer(
-            QuestionID=dto.QuestionID,
-            AnswerText=dto.AnswerText,
-            CorrectOptionID=dto.CorrectOptionID,
+           question_id=dto.question_id,
+           answer_text=dto.answer_text,
+           correct_option_id=dto.correct_option_id,
         ))
 
-    def get_all_teacheranswers(self):
+    def get_all_teacher_answers(self):
         return self.repo.get_all()
 
-    def get_teacheranswer_by_id(self, teacher_answer_id):
+    def get_teacher_answer_by_id(self, teacher_answer_id):
         obj = self.repo.get_by_id(teacher_answer_id)
         if not obj:
             raise CleverCheckBaseError(teacher_answer_id)
         return obj
 
-    def update_teacheranswer(self, teacher_answer_id, dto):
+    def update_teacher_answer(self, teacher_answer_id, dto):
         obj = self.repo.update(teacher_answer_id, TeacherAnswer(
-            QuestionID=dto.QuestionID,
-            AnswerText=dto.AnswerText,
-            CorrectOptionID=dto.CorrectOptionID,
+           question_id=dto.question_id,
+           answer_text=dto.answer_text,
+           correct_option_id=dto.correct_option_id,
         ))
         if not obj:
             raise CleverCheckBaseError(teacher_answer_id)
         return obj
 
-    def delete_teacheranswer(self, teacher_answer_id):
+    def delete_teacher_answer(self, teacher_answer_id):
         obj = self.repo.delete(teacher_answer_id)
         if not obj:
             raise CleverCheckBaseError(teacher_answer_id)

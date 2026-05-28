@@ -1,6 +1,7 @@
 from server.models.classes import Class
 from sqlalchemy.orm import Session
 
+
 class ClassRepository:
     def __init__(self, session: Session):
         self.session = session
@@ -14,21 +15,32 @@ class ClassRepository:
         return self.session.query(Class).all()
 
     def get_by_id(self, id):
-        return self.session.query(Class).get(id)
+        return self.session.get(Class, id)
 
     def update(self, id, new_data: Class):
         obj = self.get_by_id(id)
-        if obj:
-            obj.ClassName = new_data.ClassName
-            self.session.commit()
+
+        if not obj:
+            return None
+
+        obj.class_name = new_data.class_name
+        self.session.commit()
+
         return obj
 
     def delete(self, id):
         obj = self.get_by_id(id)
+
         if obj:
             self.session.delete(obj)
             self.session.commit()
+
         return obj
 
     def exists_by_name(self, name):
-        return self.session.query(Class).filter_by(ClassName=name).first() is not None
+        return (
+            self.session.query(Class)
+            .filter_by(class_name=name)
+            .first()
+            is not None
+        )

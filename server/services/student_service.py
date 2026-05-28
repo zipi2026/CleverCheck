@@ -7,11 +7,11 @@ class StudentService:
 
     def add_student(self, dto):
         self.repo.add(Student(
-            FirstName=dto.FirstName,
-            LastName=dto.LastName,
-            PasswordHash=dto.PasswordHash,
-            ClassID=dto.ClassID,
-            IsActive=dto.IsActive,
+            first_name=dto.first_name,
+            last_name = dto.last_name,
+            class_id = dto.class_id,
+            password_hash=dto.password_hash,
+            is_active = dto.is_active,
         ))
 
     def get_all_students(self):
@@ -25,11 +25,11 @@ class StudentService:
 
     def update_student(self, student_id, dto):
         obj = self.repo.update(student_id, Student(
-            FirstName=dto.FirstName,
-            LastName=dto.LastName,
-            PasswordHash=dto.PasswordHash,
-            ClassID=dto.ClassID,
-            IsActive=dto.IsActive,
+            first_name=dto.first_name,
+            last_name = dto.last_name,
+            class_id = dto.class_id,
+            password_hash=dto.password_hash,
+            is_active = dto.is_active,
         ))
         if not obj:
             raise CleverCheckBaseError(student_id)

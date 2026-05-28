@@ -14,16 +14,21 @@ class StudentRepository:
         return self.session.query(Student).all()
 
     def get_by_id(self, id):
-        return self.session.query(Student).get(id)
+        return self.session.get(Student, id)
 
     def update(self, id, new_data: Student):
         obj = self.get_by_id(id)
-        if obj:
-            obj.FirstName = new_data.FirstName
-            obj.LastName = new_data.LastName
-            obj.ClassID = new_data.ClassID
-            obj.IsActive = new_data.IsActive
-            self.session.commit()
+
+        if not obj:
+            return None
+
+        obj.first_name = new_data.first_name
+        obj.last_name = new_data.last_name
+        obj.class_id = new_data.class_id
+        obj.is_active = new_data.is_active
+        obj.password_hash = new_data.password_hash
+
+        self.session.commit()
         return obj
 
     def delete(self, id):

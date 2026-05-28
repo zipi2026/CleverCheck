@@ -6,8 +6,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from server.models.questions import Base
 
-engine = create_engine('mssql+pyodbc://localhost/CleverCheckDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes')
+engine = create_engine(
+    'mssql+pyodbc://localhost/CleverCheckDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes'
+)
 Base.metadata.create_all(engine)
+
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -16,22 +19,49 @@ service = QuestionService(repo)
 
 questions_blueprint = Blueprint('questions', __name__)
 
+
 @questions_blueprint.route('', methods=['POST'])
 def add_question():
     dto = QuestionDTO(**request.get_json())
     service.add_question(dto)
     return jsonify({'message': 'Question added'}), 201
 
+
+@questions_blueprint.route('', methods=['GET'])
+def get_questions():
+    data = service.get_all_questions()
+    return jsonify([
+        {
+            'id': q.id,
+            'questionNumber': q.question_number,
+            'examID': q.exam_id,
+            'questionText': q.question_text,
+            'questionTypeID': q.question_type_id,
+            'maxScore': q.max_score
+        }
+        for q in data
+    ])
+
+
 @questions_blueprint.route('/<int:question_id>', methods=['GET'])
 def get_question(question_id):
-    x = service.get_question_by_id(question_id)
-    return jsonify({'id': x.QuestionID})
+    q = service.get_question_by_id(question_id)
+    return jsonify({
+        'id': q.id,
+        'questionNumber': q.question_number,
+        'examID': q.exam_id,
+        'questionText': q.question_text,
+        'questionTypeID': q.question_type_id,
+        'maxScore': q.max_score
+    })
+
 
 @questions_blueprint.route('/<int:question_id>', methods=['PUT'])
 def update_question(question_id):
     dto = QuestionDTO(**request.get_json())
     service.update_question(question_id, dto)
     return jsonify({'message': 'Question updated'})
+
 
 @questions_blueprint.route('/<int:question_id>', methods=['DELETE'])
 def delete_question(question_id):

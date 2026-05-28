@@ -19,11 +19,12 @@ class TeacherRepository:
     def update(self, id, new_data: Teacher):
         obj = self.get_by_id(id)
         if obj:
-            obj.FirstName = new_data.FirstName
-            obj.LastName = new_data.LastName
-            obj.Email = new_data.Email
-            obj.IsActive = new_data.IsActive
-            obj.Role = new_data.Role
+            obj.first_name = new_data.first_name
+            obj.last_name = new_data.last_name
+            obj.email = new_data.email
+            obj.password_hash = new_data.password_hash
+            obj.is_active = new_data.is_active
+            obj.role = new_data.role
             self.session.commit()
         return obj
 
@@ -35,4 +36,4 @@ class TeacherRepository:
         return obj
 
     def exists_by_email(self, email):
-        return self.session.query(Teacher).filter_by(Email=email).first() is not None
+        return self.session.query(Teacher).filter_by(email=email).first() is not None

@@ -1,5 +1,3 @@
-#c services/subject_service.py
-#from ..models.subject import Subject
 from server.models.subject import Subject
 from server.exceptions.exceptions import CleverCheckBaseError
 
@@ -9,9 +7,8 @@ class SubjectService:
 
     def add_subject(self, dto):
         if not dto.SubjectName:
-            raise CleverCheckBaseError()
-        if self.repo.exists_by_name(dto.SubjectName):
-            raise CleverCheckBaseError(dto.SubjectName)
+            raise CleverCheckBaseError("SubjectName is required")
+
         self.repo.add(Subject(SubjectName=dto.SubjectName))
 
     def get_all_subjects(self):
@@ -24,12 +21,15 @@ class SubjectService:
         return subject
 
     def update_subject(self, subject_id, dto):
-        subject = self.repo.update(subject_id, Subject(SubjectName=dto.SubjectName))
+        subject = self.repo.get_by_id(subject_id)
         if not subject:
             raise CleverCheckBaseError(subject_id)
-        return subject
+
+        subject.SubjectName = dto.SubjectName
+        return self.repo.update(subject_id, subject)
 
     def delete_subject(self, subject_id):
         subject = self.repo.delete(subject_id)
         if not subject:
             raise CleverCheckBaseError(subject_id)
+        return subject

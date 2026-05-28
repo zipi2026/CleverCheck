@@ -1,7 +1,6 @@
-class TeacherDTO:
-    def __init__(self, FirstName: str, LastName: str, Email: str, IsActive: bool, Role: str):
-        self.FirstName = FirstName
-        self.LastName = LastName
-        self.Email = Email
-        self.IsActive = IsActive
-        self.Role = Role
+class TeacherAnswerDTO:
+    def __init__(self,question_id: int, answer_text: str = None, correct_option_id: int = None
+    ):
+        self.question_id = question_id
+        self.answer_text = answer_text
+        self.correct_option_id = correct_option_id

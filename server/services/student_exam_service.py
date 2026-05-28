@@ -24,16 +24,17 @@ class StudentExamService:
         return obj
 
     def update_studentexam(self, student_exam_id, dto):
-        obj = self.repo.update(student_exam_id, StudentExam(
-            ExamID=dto.ExamID,
-            StudentID=dto.StudentID,
-            StartTime=dto.StartTime,
-            EndTime=dto.EndTime,
-            Score=dto.Score,
-        ))
+        obj = self.repo.get_by_id(student_exam_id)
         if not obj:
             raise CleverCheckBaseError(student_exam_id)
-        return obj
+
+        obj.ExamID = dto.ExamID
+        obj.StudentID = dto.StudentID
+        obj.StartTime = dto.StartTime
+        obj.EndTime = dto.EndTime
+        obj.Score = dto.Score
+
+        return self.repo.update(student_exam_id, obj)
 
     def delete_studentexam(self, student_exam_id):
         obj = self.repo.delete(student_exam_id)

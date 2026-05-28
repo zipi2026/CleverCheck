@@ -25,13 +25,12 @@ def add_teacher():
 @teachers_blueprint.route('', methods=['GET'])
 def get_teachers():
     data = service.get_all_teachers()
-    return jsonify([{'id': x.TeacherID, 'firstName': x.FirstName, 'lastName': x.LastName} for x in data])
+    return jsonify([{'id': x.id,'firstName': x.first_name,'lastName': x.last_name }for x in data])
 
 @teachers_blueprint.route('/<int:teacher_id>', methods=['GET'])
 def get_teacher(teacher_id):
     x = service.get_teacher_by_id(teacher_id)
-    return jsonify({'id': x.TeacherID})
-
+    return jsonify({'id': x.id,'firstName': x.first_name,'lastName': x.last_name})
 @teachers_blueprint.route('/<int:teacher_id>', methods=['PUT'])
 def update_teacher(teacher_id):
     dto = TeacherDTO(**request.get_json())

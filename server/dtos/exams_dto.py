@@ -1,21 +1,20 @@
 from datetime import datetime
 
-
 class ExamDTO:
     def __init__(
         self,
-        ExamName: str,
-        TeacherID: int,
-        SubjectID: int,
-        StartTime: datetime,
-        EndTime: datetime,
-        DurationMinutes: int,
-        Status: str
+        exam_name: str,
+        teacher_id: int,
+        subject_id: int,
+        start_time: datetime,
+        end_time: datetime,
+        duration_minutes: int,
+        status: str
     ):
-        self.ExamName = ExamName
-        self.TeacherID = TeacherID
-        self.SubjectID = SubjectID
-        self.StartTime = StartTime
-        self.EndTime = EndTime
-        self.DurationMinutes = DurationMinutes
-        self.Status = Status
+        self.exam_name = exam_name
+        self.teacher_id = teacher_id
+        self.subject_id = subject_id
+        self.start_time = start_time
+        self.end_time = end_time
+        self.duration_minutes = duration_minutes
+        self.status = status

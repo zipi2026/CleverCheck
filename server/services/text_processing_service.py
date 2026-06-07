@@ -1,6 +1,6 @@
 import re
 from keybert import KeyBERT
-from server.services.Synonym_reverso import SynonymClient
+from server.services.main_service.Synonym_reverso import SynonymClient
 
 class TextProcessingService:
     def __init__(self, model):

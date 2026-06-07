@@ -57,7 +57,7 @@ class SynonymClient:
         if not synonyms:
             # אם הרשימה ריקה, אולי שינוי ב-HTML או class לא קיים
             raise Exception("No synonyms found. Check if the HTML structure or class name has changed.")
-
+      #  print(word,synonyms)
         return synonyms
 
 

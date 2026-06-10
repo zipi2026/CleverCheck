@@ -4,12 +4,20 @@ from check_nagative_in_student_answer import contains_negation
 from clean_student_answer import clean_student_answer
 from key_words_teacher_answer import extract_teacher_keywords
 from Synonym_reverso import SynonymClient
-from typing import Dict
+from typing import Dict, List
 from keybert import KeyBERT
+
+def prepare_teacher_keywords(teacher_answer: str, kw_model) -> List[str]:
+    """
+    מחזירה את רשימת מילות המפתח של המורה.
+    פעולה זו מתבצעת פעם אחת בלבד.
+    """
+    teacher_keywords = extract_teacher_keywords(teacher_answer, kw_model)
+    return [kw[0] for kw in teacher_keywords]
 
 def evaluate_answer(
         student_answer: str,
-        teacher_answer: str,
+        teacher_keywords: List[str],
         kw_model: KeyBERT,
         synonym_client: SynonymClient,
         max_score: float = 100
@@ -40,12 +48,12 @@ def evaluate_answer(
     # -------------------------
     # שלב 2 - מילות מפתח מורה
     # -------------------------
-    teacher_keywords = extract_teacher_keywords(
-        teacher_answer,
-        kw_model
-    )
+    #teacher_keywords = extract_teacher_keywords(
+       # teacher_answer,
+      #  kw_model
+   # )
 
-    teacher_keywords = [kw[0] for kw in teacher_keywords]
+    #teacher_keywords = [kw[0] for kw in teacher_keywords]
     #print("teacher_keywords =", teacher_keywords)
 
     if not teacher_keywords:
@@ -58,10 +66,21 @@ def evaluate_answer(
 
     matched_keywords = []
     missing_keywords = []
+    print(teacher_keywords)
+
+    all_words = set()
+    for keyword in teacher_keywords:
+        all_words.update(keyword.split())  # מוסיפים את כל המילים במילות המפתח
+
+    all_words.update(student_words)  # מוסיפים את כל המילים בתשובת התלמיד
+
+    for word in all_words:
+        synonym_client.get_synonyms(word)
 
     # -------------------------
     # שלב 3 - התאמת מושגים
     # -------------------------
+    all_words = set()
     for keyword in teacher_keywords:
 
         keyword_words = keyword.split()
@@ -72,13 +91,15 @@ def evaluate_answer(
 
             direct_match = kw_word in student_words
 
-            # synonym_match = any(
-            #     synonym_client.are_synonyms(
-            #         kw_word,
-            #         student_word
-            #     )
-            #     for student_word in student_words
-            # )
+            synonym_match = any(
+                 synonym_client.are_synonyms(
+                     kw_word,
+                     student_word
+                 )
+                 for student_word in student_words
+             )
+            if (synonym_match and not direct_match):
+                print("synonym****************************************************************")
 
             #if not (direct_match or synonym_match):
             if not (direct_match):
@@ -225,16 +246,71 @@ if __name__ == "__main__":
         # תשובה שגויה
         "הדפדפן מנהל את משאבי המחשב"
     ]
+    question = "מה תפקידו של מסד נתונים?"
 
-    for answer in test_answers:
-        print("Student----------------:", answer)
+    teacher_answer2 = "מסד נתונים משמש לאחסון וניהול מידע."
+
+    test_answers2 = [
+        # התאמה מלאה
+        "מסד נתונים משמש לאחסון וניהול מידע.",
+
+        # שינוי סדר מילים
+        "ניהול ואחסון מידע מתבצע באמצעות מסד נתונים.",
+
+        # ניסוח אחר
+        "מסד הנתונים אחראי לשמור ולנהל מידע.",
+        "מסד נתונים מאפשר לשמור מידע ולנהל אותו.",
+        "מסד נתונים מרכז את המידע ומנהל אותו.",
+
+        # מילים נרדפות
+        "מסד נתונים משמש לשמירת נתונים וניהולם.",
+        "מסד הנתונים מאחסן מידע ומטפל בו.",
+        "מסד נתונים מרכז נתונים ומאפשר ניהול שלהם.",
+        "מערכת בסיס נתונים מיועדת לאחסון מידע.",
+
+        # תשובות חלקיות
+        "מסד נתונים מאחסן מידע.",
+        "מסד נתונים מנהל מידע.",
+        "שמירת נתונים.",
+        "אחסון מידע.",
+
+        # הרחבה נכונה
+        "מסד נתונים משמש לאחסון, ניהול ושליפה של מידע.",
+        "מסד הנתונים שומר מידע ומאפשר חיפוש ועדכון שלו.",
+        "מסד נתונים מרכז את כל הנתונים ומאפשר גישה מסודרת אליהם.",
+
+        # תשובות עם משמעות דומה אך מילים שונות
+        "המערכת שומרת נתונים בצורה מאורגנת.",
+        "מאגר הנתונים מאפשר תחזוקה ושליטה על מידע.",
+        "הנתונים נשמרים בצורה מסודרת וניתנים לניהול.",
+        "המערכת מרכזת מידע ומאפשרת לעבוד איתו ביעילות.",
+
+        # תשובות שגויות
+        "מסד נתונים מריץ תוכניות.",
+        "מסד נתונים הוא מערכת הפעלה.",
+        "מסד נתונים מיועד רק להצגת מידע.",
+        "מסד נתונים מחליף את המעבד.",
+
+        # שלילה
+        "מסד נתונים אינו משמש לאחסון מידע.",
+        "מסד נתונים לא מנהל מידע.",
+
+        # תשובות לא קשורות
+        "הדפדפן מציג אתרי אינטרנט.",
+        "המעבד מבצע חישובים.",
+        "הזיכרון שומר נתונים זמניים."
+    ]
+
+    kw_model = KeyBERT(model=model)
+    teacher_keywords = prepare_teacher_keywords(teacher_answer2, kw_model)
+
+    for answer in test_answers2:
         result = evaluate_answer(
             student_answer=answer,
-            teacher_answer=teacher_answer,
+            teacher_keywords=teacher_keywords,
             kw_model=kw_model,
             synonym_client=SynonymClient()
         )
-
         print("Student:", answer)
         print("Result :", result)
         print("=" * 80)

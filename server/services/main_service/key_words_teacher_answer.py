@@ -12,6 +12,7 @@ def extract_teacher_keywords(teacher_answer: str, kw_model: KeyBERT, threshold: 
         use_mmr = True,  # מקדם מגוונות
         diversity = 0.7  # עד כמה המילים שונות זו מזו
     )
+    print(teacher_answer)
 
     #concepts = [kw for kw in keywords]
 

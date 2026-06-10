@@ -8,8 +8,12 @@ class SynonymClient:
     def __init__(self) -> None:
         # מבטל אזהרות SSL
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    @staticmethod
-    def get_synonyms(word: str) -> List[str]:
+        self._cache = {}
+
+
+    def get_synonyms(self,word: str) -> List[str]:
+        if word in self._cache:
+            return self._cache[word]
         try:
             # קידוד המילה ל-URL כדי למנוע שגיאות עם תווים מיוחדים
             encoded_word = urllib.parse.quote(word)
@@ -58,6 +62,7 @@ class SynonymClient:
             # אם הרשימה ריקה, אולי שינוי ב-HTML או class לא קיים
             raise Exception("No synonyms found. Check if the HTML structure or class name has changed.")
       #  print(word,synonyms)
+        self._cache[word] = synonyms
         return synonyms
 
 
@@ -71,15 +76,15 @@ class SynonymClient:
                 return True
 
             try:
-                synonyms1 = SynonymClient.get_synonyms(word1)
+                synonyms1 = set(self.get_synonyms(word1))
             except Exception as e:
-                print(f"Failed to get synonyms for '{word1}': {e}")
+                #print(f"Failed to get synonyms for '{word1}': {e}")
                 synonyms1 = []
 
             try:
-                synonyms2 = SynonymClient.get_synonyms(word2)
+                synonyms2 = set(self.get_synonyms(word2))
             except Exception as e:
-                print(f"Failed to get synonyms for '{word2}': {e}")
+                #print(f"Failed to get synonyms for '{word2}': {e}")
                 synonyms2 = []
 
             return word2 in synonyms1 or word1 in synonyms2

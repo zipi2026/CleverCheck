@@ -7,10 +7,10 @@
 - Database: SQL Server
 
 ## TL;DR
-CleverCheck is a smart system for automatically grading tests with open-ended questions. It combines a React + TypeScript frontend with a Python Flask backend, backed by SQL Server and a local SentenceTransformer model.
+Gradex is a smart system for automatically grading tests with open-ended questions. It combines a React + TypeScript frontend with a Python Flask backend, backed by SQL Server and a local SentenceTransformer model.
 
 ## Overview
-CleverCheck provides a classroom API and a React frontend for managing subjects, classes, teachers, students, exams, questions, and answers. The backend uses Flask, SQLAlchemy, and a local sentence-transformers model for automated grading and similarity-based answer evaluation.
+Gradex provides a classroom API and a React frontend for managing subjects, classes, teachers, students, exams, questions, and answers. The backend uses Flask, SQLAlchemy, and a local sentence-transformers model for automated grading and similarity-based answer evaluation.
 
 ## Installation
 1. Clone the repository.
@@ -62,7 +62,7 @@ VITE_SERVER_URL=http://localhost:5000
 The backend can read SQL Server settings from environment variables:
 ```env
 DB_SERVER=localhost\SQLEXPRESS
-DB_NAME=CleverCheckDB
+DB_NAME=GradexDB
 DB_DRIVER=ODBC+Driver+17+for+SQL+Server
 ```
 

@@ -1,4 +1,4 @@
-# CleverCheck
+# Gradex
 
 ## Technology Stack
 

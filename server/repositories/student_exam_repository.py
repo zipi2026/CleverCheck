@@ -28,6 +28,12 @@ class StudentExamRepository:
             .all()
         )
 
+    def update_score(self, exam_id, score):
+        obj = self.get_by_id(exam_id)
+        if obj:
+            obj.score = score
+        return obj
+
     def delete(self, id):
         obj = self.session.get(StudentExam, id)
 

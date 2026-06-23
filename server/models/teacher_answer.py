@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, CheckConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, CheckConstraint, UniqueConstraint
 from server.models.base import Base
 from sqlalchemy.orm import relationship
 
@@ -49,6 +49,10 @@ class TeacherAnswer(Base):
             """,
             name="CK_TeacherAnswers_Type"
         ),
+        UniqueConstraint(
+            "QuestionID",
+            name="UQ_TeacherAnswer_Question"
+        )
     )
 
     # =========================

@@ -1,0 +1,35 @@
+* [33ma9b8d7d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCHECK-ANSWER[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31mneworigin/main[m[33m, [m[1;31mneworigin/HEAD[m[33m)[m Add technology stack section to README
+* [33m285d464[m Add README.md for CleverCheck project
+*   [33m10b1009[m Merge pull request #11 from zipi2026/zipi
+[32m|[m[33m\[m  
+* [33m\[m   [33m089dcf8[m Merge pull request #10 from zipi2026/zipi
+[34m|[m[35m\[m [33m\[m  
+[34m|[m * [33m\[m   [33mdd17e53[m Merge branch 'main' into zipi
+[34m|[m [36m|[m[34m\[m [33m\[m  
+[34m|[m [36m|[m[34m/[m [33m/[m  
+[34m|[m[34m/[m[36m|[m [33m|[m   
+* [36m|[m [33m|[m [33m528e3ee[m[33m ([m[1;32mmain[m[33m)[m Escupdete layers
+[1;31m|[m [36m|[m [33m|[m * [33m57f2bab[m[33m ([m[1;31morigin/zipi[m[33m)[m add README.md
+[1;31m|[m [36m|[m [33m|[m[33m/[m  
+[1;31m|[m [36m|[m * [33m9c3ae59[m update stanza
+[1;31m|[m [36m|[m[36m/[m  
+[1;31m|[m * [33mdcf942d[m add services
+[1;31m|[m * [33m2ed89c1[m Update .gitignore to ignore heavy model files
+[1;31m|[m * [33m9b918a0[m Refactor answer checking service
+[1;31m|[m * [33m8f6bc7b[m Escupdete layers
+[1;31m|[m * [33mfac3baa[m Add text cleaning and synonym processing functions
+[1;31m|[m *   [33ma62291b[m Merge pull request #9 from zipi2026/my_changes
+[1;31m|[m [1;33m|[m[1;34m\[m  
+[1;31m|[m [1;33m|[m * [33m7234831[m Update controllers with improved validation and flow
+[1;31m|[m [1;33m|[m[1;33m/[m  
+[1;31m|[m *   [33mb05e111[m Merge pull request #8 from zipi2026/Add_dto_and_models
+[1;31m|[m [1;35m|[m[1;36m\[m  
+[1;31m|[m [1;35m|[m * [33mc81338e[m refactor: sync controllers DTOs services and repositories
+[1;31m|[m [1;35m|[m[1;35m/[m  
+[1;31m|[m *   [33m85c9bb1[m Merge pull request #7 from zipi2026/Add_dto_and_models
+[1;31m|[m [31m|[m[32m\[m  
+[1;31m|[m [31m|[m *   [33mda33041[m Merge remote-tracking branch 'origin/main' into Add_dto_and_models
+[1;31m|[m [31m|[m [33m|[m[31m\[m  
+[1;31m|[m [31m|[m [33m|[m[31m/[m  
+[1;31m|[m [31m|[m[31m/[m[33m|[m   
+[1;31m|[m * [33m|[m [33md8a005a[m add services

@@ -61,3 +61,7 @@ def update_student_exam(student_exam_id):
 def delete_student_exam(student_exam_id):
     service.delete_student_exam(student_exam_id)
     return jsonify({'message': 'StudentExam deleted'})
+
+@student_exams_blueprint.route('/<int:student_exam_id>/finish', methods=['POST'])
+def finish_exam(student_exam_id):
+    return service.update_exam_grades(student_exam_id)

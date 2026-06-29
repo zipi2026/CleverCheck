@@ -2,7 +2,7 @@ from urllib import request
 
 from fontTools.config import OPTIONS
 
-from server.services.auth_service import validate_user
+from server.services.auth_service import validate_student
 from server.services.jwt_service import create_token
 from flask import Blueprint, request, jsonify
 from sqlalchemy import create_engine
@@ -35,16 +35,16 @@ def login():
         if not data:
             return jsonify({"error": "נדרש JSON"}), 400
 
-        username = data.get("username")
+        student_name = data.get("student_name")
         password = data.get("password")
 
         try:
-            user = validate_user(session, username, password)
+            student = validate_student(session, student_name, password)
 
-            if not user:
+            if not student:
                 return jsonify({"error": "שם משתמש או סיסמה שגויים"}), 401
 
-            token = create_token(user)
+            token = create_token(student)
 
             response = jsonify({"message": "login success"})
 
@@ -64,20 +64,16 @@ def login():
         except Exception as e:
             print("LOGIN ERROR:", e)
             return jsonify({"error": str(e)}), 500
-            #return jsonify({"error": "שגיאת שרת"}), 500
 @auth_bp.route('/me', methods=['GET'])
 def get_student_me():
-    token = request.cookies.get('token')
-    if not token:
-        return jsonify({'error': 'אין טוקן'}), 401
-
     try:
-        from server.services.jwt_service import decode_token
-        data = decode_token(token)
+        from server.services.jwt_service import get_student_data
+        data = get_student_data()
+        print(data)
         return jsonify({
-            'user_id': data['user_id'],
+            'student_id': data['student_id'],
             'role': data['role'],
-            'username': data.get('username', 'student'),
+            'student_name': data.get('student_name', 'student'),
         }), 200
     except Exception:
         return jsonify({'error': 'טוקן לא תקין'}), 401

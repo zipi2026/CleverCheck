@@ -1,21 +1,27 @@
 import datetime
+from flask import request
+
 import jwt
 from server.config import Config
 
 
-def create_token(user: dict):
+def create_token(student: dict):
     payload = {
-        "user_id": user["id"],
-        "role": user["role"],
+        "student_id": student["id"],
+        "role": student["role"],
+        "student_name": student["student_name"],
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
     }
 
     return jwt.encode(payload, Config.SECRET_KEY, algorithm="HS256")
 
 
-def decode_token(token: str):
+def get_student_data():
+    token = request.cookies.get("token")
+    if not token:
+        return None
     try:
-        return jwt.decode(
+        decoded = jwt.decode(
             token,
             Config.SECRET_KEY,
             algorithms=["HS256"]
@@ -24,3 +30,5 @@ def decode_token(token: str):
         return None
     except jwt.InvalidTokenError:
         return None
+    return decoded
+

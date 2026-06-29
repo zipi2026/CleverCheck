@@ -12,8 +12,8 @@ const getStatusMeta = (status: ExamCardModel['status']) => {
       return { label: 'בתהליך', tone: 'in-progress', description: 'התחלת לענות' };
     case 'Submitted':
       return { label: 'ממתין לבדיקה', tone: 'submitted', description: 'ההגשה נקלטה' };
-    case 'Graded':
-      return { label: 'הוגש עם ציון', tone: 'graded', description: 'הציון זמין' };
+    case 'Draft':
+      return { label: 'הוגש עם ציון', tone: 'Draft', description: 'הציון זמין' };
     default:
       return { label: 'לא זמין', tone: 'closed', description: 'הבחינה סגורה או לא זמינה עדיין' };
   }
@@ -26,10 +26,19 @@ export const DashboardPage = () => {
   const [exams, setExams] = useState<ExamCardModel[]>([]);
   const [search, setSearch] = useState('');
   const [subject, setSubject] = useState('הכל');
-
+  console.log("Dashboard mounted");
   useEffect(() => {
-    void examService.listExams().then(setExams);
-  }, []);
+  console.log("calling listExams");
+
+  examService.listExams()
+    .then((data) => {
+      console.log("EXAMS RECEIVED:", data);
+      setExams(data);
+    })
+    .catch((err) => {
+      console.error("LIST EXAMS FAILED:", err);
+    });
+}, []);
 
   const subjects = useMemo(() => ['הכל', ...Array.from(new Set(exams.map((exam) => exam.subject)))], [exams]);
   const filteredExams = useMemo(() => {
@@ -42,7 +51,7 @@ export const DashboardPage = () => {
 
   const activeExams = filteredExams.filter((exam) => exam.status === 'Active' || exam.status === 'InProgress');
   const upcomingExams = filteredExams.filter((exam) => exam.status === 'Closed');
-  const completedExams = filteredExams.filter((exam) => exam.status === 'Submitted' || exam.status === 'Graded');
+  const completedExams = filteredExams.filter((exam) => exam.status === 'Submitted' || exam.status === 'Draft');
 
   const getActionState = (exam: ExamCardModel) => {
     if (exam.status === 'Active') {
@@ -51,8 +60,8 @@ export const DashboardPage = () => {
     if (exam.status === 'InProgress') {
       return { label: 'המשך מבחן', enabled: true, to: `/exam/${exam.examId}` };
     }
-    if (exam.status === 'Graded') {
-      return { label: 'צפייה בתוצאות', enabled: true, to: `/results/${exam.examId * 100}` };
+    if (exam.status === 'Draft') {
+      return { label: 'צפייה בתוצאות', enabled: true, to: `/results/${exam.examId}` };
     }
     if (exam.status === 'Submitted') {
       return { label: 'בבדיקה', enabled: false, to: '#' };

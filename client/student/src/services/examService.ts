@@ -1,6 +1,6 @@
 import type { ExamCardModel, ExamInitialPayload, ExamStatus, ResultsPayload } from '../types';
 
-const API_BASE = '/api/student';
+const API_BASE = 'http://localhost:5000/api';
 
 const parseJson = async (response: Response) => {
   const payload = await response.json().catch(() => null);
@@ -14,13 +14,17 @@ const parseJson = async (response: Response) => {
 export const examService = {
   listExams: async (): Promise<ExamCardModel[]> => {
     const payload = await parseJson(await fetch(`${API_BASE}/exams`, { credentials: 'include' }));
-    return (payload as Array<{ examId: number; name: string; subject: string; status: string; durationMinutes: number }>).map((exam) => ({
-      ...exam,
+    console.log("EXAMS FROM SERVER:", payload);
+    return (payload as Array<{ id: number; examName: string; subjectID: string; status: string; durationMinutes: number }>).map((exam) => ({
+      examId: exam.id,
+      name: exam.examName,
+      subject: exam.subjectID,
       status: exam.status as ExamStatus,
-    }));
+      durationMinutes: exam.durationMinutes,
+}));
   },
   getExam: async (examId: string): Promise<ExamInitialPayload> => {
-    const payload = await parseJson(await fetch(`${API_BASE}/exams/${examId}`, { credentials: 'include' }));
+    const payload = await parseJson(await fetch(`${API_BASE}/student_exams/exam/${examId}`, { credentials: 'include' }));
     return payload as ExamInitialPayload;
   },
   saveAnswer: async (payload: { studentExamId: number; questionId: number; answerText: string | null; selectedOptionId: number | null }) => {
@@ -42,7 +46,8 @@ export const examService = {
     return parseJson(response);
   },
   getResults: async (studentExamId: string): Promise<ResultsPayload> => {
-    const payload = await parseJson(await fetch(`${API_BASE}/exams/${Number(studentExamId) / 100}/results`, { credentials: 'include' }));
+    const response = await fetch(`${API_BASE}/student_exams/${Number(studentExamId) / 100}/results`, { credentials: 'include' });
+    const payload = await parseJson(response);
     return payload as ResultsPayload;
   },
 };

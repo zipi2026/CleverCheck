@@ -6,9 +6,9 @@ from werkzeug.security import check_password_hash
 from server.repositories.student_repository import StudentRepository
 
 
-def validate_user(db, username: str, password: str):
+def validate_student(db, student_name: str, password: str):
     try:
-        student_id = int(username)
+        student_id = int(student_name)
     except ValueError:
         return None
 
@@ -27,5 +27,5 @@ def validate_user(db, username: str, password: str):
     return {
         "id": student.id,
         "role": "student",
-        "username": student.first_name
+        "student_name": student.first_name
     }

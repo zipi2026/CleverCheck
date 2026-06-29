@@ -16,14 +16,14 @@ const formatTime = (ms: number) => {
 };
 
 const getQuestionBadge = (questionId: number, answers: Record<number, AnswerValue>, markedQuestions: number[], inProgressQuestions: number[], index: number, currentQuestion: number) => {
-  if (index === currentQuestion) {
-    return { label: 'נוכחי', tone: 'current' };
+  if (markedQuestions.includes(questionId)) {
+    return { label: 'לבדיקה', tone: 'review' };
   }
   if (inProgressQuestions.includes(questionId)) {
     return { label: 'בעבודה', tone: 'in-progress' };
   }
-  if (markedQuestions.includes(questionId)) {
-    return { label: 'לבדיקה', tone: 'review' };
+  if (index === currentQuestion) {
+    return { label: 'נוכחי', tone: 'current' };
   }
   if (answers[questionId] && (answers[questionId].answerText || answers[questionId].selectedOptionId !== undefined)) {
     return { label: 'נענה', tone: 'answered' };
@@ -129,7 +129,7 @@ export const ExamPage = () => {
   const unansweredCount = useMemo(() => questions.length - answeredCount, [answers, questions.length]);
   const markedCount = markedQuestions.length;
   const inProgressCount = inProgressQuestions.length;
-
+  
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
@@ -162,12 +162,12 @@ export const ExamPage = () => {
     return <div className="page-loading">המבחן לא נמצא.</div>;
   }
 
-  const updateAnswer = async (value: AnswerValue) => {
-    setAnswer(currentQuestionData.questionId, value);
+  const updateAnswer = async (questionId: number, value: AnswerValue) => {
+    setAnswer(questionId, value);
     const studentExamId = Number(exam?.examId ?? 0) * 100;
     await examService.saveAnswer({
       studentExamId,
-      questionId: currentQuestionData.questionId,
+      questionId,
       answerText: value.answerText ?? null,
       selectedOptionId: value.selectedOptionId ?? null,
     });
@@ -269,7 +269,7 @@ export const ExamPage = () => {
                             type="radio"
                             name={`q-${question.questionId}`}
                             checked={questionAnswer.selectedOptionId === option.optionId}
-                            onChange={() => void updateAnswer({ selectedOptionId: option.optionId })}
+                            onChange={() => void setAnswer(question.questionId, { selectedOptionId: option.optionId })}
                           />
                           <span>{option.text}</span>
                         </label>
@@ -279,7 +279,7 @@ export const ExamPage = () => {
                     <textarea
                       className="open-answer-input"
                       value={questionAnswer.answerText ?? ''}
-                      onChange={(event) => void updateAnswer({ answerText: event.target.value })}
+                      onChange={(event) => void setAnswer(question.questionId, { answerText: event.target.value })}
                       placeholder="הקלידו תשובה מפורטת…"
                     />
                   )}
@@ -323,7 +323,8 @@ export const ExamPage = () => {
                   const status = getQuestionBadge(question.questionId, answers, markedQuestions, inProgressQuestions, index, currentQuestion);
                   return (
                     <button key={question.questionId} className={`nav-button status-${status.tone}`} onClick={() => jumpToQuestion(index)}>
-                      {question.questionNumber}
+                      <span className="nav-question-label">שאלה {question.questionNumber}</span>
+                      <span className="nav-status-label">{status.label}</span>
                     </button>
                   );
                 })}

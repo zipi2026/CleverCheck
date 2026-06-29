@@ -251,4 +251,4 @@ server/my_model/
 
 # קבצי מערכת
 .DS_Store
-Thumbs.db
+Thumbs.dbnode_modules/ 

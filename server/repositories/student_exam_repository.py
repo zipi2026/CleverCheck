@@ -1,38 +1,34 @@
-from server.models.student_exams import StudentExam
-from sqlalchemy.orm import Session
+from server.models import StudentExam
 
 
 class StudentExamRepository:
-    def __init__(self, session: Session):
+    def __init__(self, session):
         self.session = session
 
-    def add(self, obj: StudentExam):
-        self.session.add(obj)
+    def add(self, entity):
+        self.session.add(entity)
         self.session.commit()
-        return obj
+        return entity
+
+    def get_all(self):
+        return self.session.query(StudentExam).all()
 
     def get_by_id(self, id):
         return self.session.get(StudentExam, id)
 
-    def get_by_exam(self, exam_id):
+    def get_full_exam_for_student(self, student_id, exam_id):
         return (
             self.session.query(StudentExam)
-            .filter_by(ExamID=exam_id)
-            .all()
-        )
-
-    def get_by_student(self, student_id):
-        return (
-            self.session.query(StudentExam)
-            .filter_by(StudentID=student_id)
-            .all()
+            .filter(
+                StudentExam.student_id == student_id,
+                StudentExam.exam_id == exam_id
+            )
+            .first()
         )
 
     def delete(self, id):
-        obj = self.session.get(StudentExam, id)
-
+        obj = self.get_by_id(id)
         if obj:
             self.session.delete(obj)
             self.session.commit()
-
         return obj

@@ -1,0 +1,48 @@
+[33mf76e1e1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCHECK-ANSWER[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33mf76e1e1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCHECK-ANSWER[m[33m)[m HEAD@{1}: commit: add scribens
+[33ma728a3d[m[33m ([m[1;31morigin/CHECK-ANSWER[m[33m, [m[1;31mneworigin/CHECK-ANSWER[m[33m)[m HEAD@{2}: checkout: moving from CHECK-ANSWER to CHECK-ANSWER
+[33ma728a3d[m[33m ([m[1;31morigin/CHECK-ANSWER[m[33m, [m[1;31mneworigin/CHECK-ANSWER[m[33m)[m HEAD@{3}: checkout: moving from main to CHECK-ANSWER
+[33m528e3ee[m[33m ([m[1;32mmain[m[33m)[m HEAD@{4}: checkout: moving from CHECK-ANSWER to main
+[33ma728a3d[m[33m ([m[1;31morigin/CHECK-ANSWER[m[33m, [m[1;31mneworigin/CHECK-ANSWER[m[33m)[m HEAD@{5}: commit: Add exam grading service
+[33m1f4326f[m HEAD@{6}: commit: Add auth and check answer services
+[33ma9b8d7d[m[33m ([m[1;31mneworigin/main[m[33m, [m[1;31mneworigin/HEAD[m[33m)[m HEAD@{7}: pull --no-stat -v --progress origin main: Fast-forward
+[33m285d464[m HEAD@{8}: reset: moving to HEAD
+[33m285d464[m HEAD@{9}: reset: moving to HEAD
+[33m285d464[m HEAD@{10}: pull origin main: Fast-forward
+[33m528e3ee[m[33m ([m[1;32mmain[m[33m)[m HEAD@{11}: reset: moving to HEAD
+[33m528e3ee[m[33m ([m[1;32mmain[m[33m)[m HEAD@{12}: checkout: moving from main to CHECK-ANSWER
+[33m528e3ee[m[33m ([m[1;32mmain[m[33m)[m HEAD@{13}: pull: Fast-forward
+[33m35685c9[m HEAD@{14}: reset: moving to HEAD
+[33m35685c9[m HEAD@{15}: commit: Add text cleaning and synonym processing functions
+[33m59a6f21[m HEAD@{16}: checkout: moving from Add_dto_and_models to main
+[33m606a04b[m[33m ([m[1;32mAdd_dto_and_models[m[33m)[m HEAD@{17}: checkout: moving from main to Add_dto_and_models
+[33m59a6f21[m HEAD@{18}: pull origin main: Fast-forward
+[33m0fb77cb[m HEAD@{19}: checkout: moving from Add_dto_and_models to main
+[33m606a04b[m[33m ([m[1;32mAdd_dto_and_models[m[33m)[m HEAD@{20}: commit: refactor: sync controllers DTOs services and repositories
+[33m0a0bf82[m HEAD@{21}: pull --no-stat -v --progress origin main: Fast-forward
+[33maf770bf[m HEAD@{22}: commit (merge): Merge remote-tracking branch 'origin/main' into Add_dto_and_models
+[33m778a2a9[m HEAD@{23}: checkout: moving from Add_dto_and_models to Add_dto_and_models
+[33m778a2a9[m HEAD@{24}: checkout: moving from Add_dto_and_models to Add_dto_and_models
+[33m778a2a9[m HEAD@{25}: checkout: moving from Add_dto_and_models to Add_dto_and_models
+[33m778a2a9[m HEAD@{26}: commit: fix dto
+[33md30342c[m HEAD@{27}: pull --no-stat -v --progress origin main: Fast-forward
+[33m0e37659[m[33m ([m[1;32mAdd_dto_and_models2[m[33m)[m HEAD@{28}: checkout: moving from Add_dto_and_models2 to Add_dto_and_models
+[33m0e37659[m[33m ([m[1;32mAdd_dto_and_models2[m[33m)[m HEAD@{29}: reset: moving to HEAD
+[33m0e37659[m[33m ([m[1;32mAdd_dto_and_models2[m[33m)[m HEAD@{30}: reset: moving to HEAD
+[33m0e37659[m[33m ([m[1;32mAdd_dto_and_models2[m[33m)[m HEAD@{31}: checkout: moving from Add_dto_and_models to Add_dto_and_models2
+[33m0e37659[m[33m ([m[1;32mAdd_dto_and_models2[m[33m)[m HEAD@{32}: merge origin/Add_dto_and_models: Merge made by the 'ort' strategy.
+[33ma7e6ddf[m HEAD@{33}: commit (amend): fix tdo
+[33m28087b9[m HEAD@{34}: commit (amend): fix tdo
+[33mbb9497a[m HEAD@{35}: commit (amend): fix tdo
+[33m0eff6ef[m HEAD@{36}: rebase (finish): returning to refs/heads/Add_dto_and_models
+[33m0eff6ef[m HEAD@{37}: rebase (start): checkout origin/Add_dto_and_models
+[33mabde280[m HEAD@{38}: commit (amend): Merge remote-tracking branch 'origin/Add_dto_and_models' into Add_dto_and_models
+[33m0eff6ef[m HEAD@{39}: merge origin/Add_dto_and_models: Merge made by the 'ort' strategy.
+[33me094ab3[m HEAD@{40}: commit (amend): Add models and dto
+[33mf86465b[m HEAD@{41}: commit: Add models and dto
+[33m64426a6[m HEAD@{42}: commit: Add models and dto
+[33m9af16ee[m HEAD@{43}: commit: Add models and dto
+[33mfcb3e00[m HEAD@{44}: pull --no-stat -v --progress origin main: Fast-forward
+[33mcf8ea51[m HEAD@{45}: commit: Add models and dto
+[33m0fb77cb[m HEAD@{46}: checkout: moving from main to Add_dto_and_models
+[33m0fb77cb[m HEAD@{47}: clone: from https://github.com/zipi2026/CleverCheck.git

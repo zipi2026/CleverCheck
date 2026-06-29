@@ -42,3 +42,6 @@ class OptionRepository:
             self.session.commit()
 
         return obj
+
+    def get_all(self):
+        return self.session.query(Option).all()

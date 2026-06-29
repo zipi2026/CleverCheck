@@ -10,7 +10,10 @@ from controllers.questions_controller import questions_blueprint
 from controllers.student_answers_controller import student_answers_blueprint
 from controllers.student_exams_controller import student_exams_blueprint
 from controllers.teacher_answers_controller import teacher_answers_blueprint
-
+from controllers.student_client_controller import student_client_bp
+from flask_cors import CORS
+from config import Config
+from server.controllers.students_auth_controller import auth_bp
 #from server.controllers.exam_classes_controller import exam_classes_blueprint
 #from server.controllers.teacher_classes_controller import teacher_classes_blueprint
 #from db_connection import init_db
@@ -20,6 +23,7 @@ import os
 from sentence_transformers import SentenceTransformer
 from db_connection_test import health_check
 #import server.models
+from flask_cors import CORS
 
 if health_check():
     print("DB connected successfully ✅")
@@ -27,7 +31,8 @@ else:
     print("DB connection failed ❌")
 
 app = Flask(__name__)
-
+CORS(app, supports_credentials=True, origins=["http://localhost:5174"])
+app.config["SECRET_KEY"] = Config.SECRET_KEY
 #init_db(app)
 
 # 1. טוען מודל
@@ -54,15 +59,14 @@ app.register_blueprint(student_answers_blueprint, url_prefix='/api/student_answe
 app.register_blueprint(student_exams_blueprint, url_prefix='/api/student_exams')
 app.register_blueprint(teacher_answers_blueprint, url_prefix='/api/teacher_answers')
 app.register_blueprint(question_types_blueprint, url_prefix='/api/question_types')
-
-
+app.register_blueprint(auth_bp, url_prefix="/api/auth")
 
 
 
 #app.register_blueprint(exam_classes_blueprint, url_prefix='/api/exam-classes')
 #app.register_blueprint(teacher_classes_blueprint, url_prefix='/api/teacher-classes')
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host="localhost", port=5000)
 
 #########################
 # server/app.py

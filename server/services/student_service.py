@@ -1,5 +1,9 @@
+from werkzeug.security import check_password_hash
+
 from server.models.student import Student
 from server.exceptions.exceptions import CleverCheckBaseError
+from server.repositories.student_repository import StudentRepository
+from werkzeug.security import check_password_hash
 
 class StudentService:
     def __init__(self, repo):
@@ -7,8 +11,8 @@ class StudentService:
 
     def add_student(self, dto):
         self.repo.add(Student(
-            id=dto.student_id,
-            first_name=dto.first_name,
+            id = dto.student_id,
+            first_name = dto.first_name,
             last_name = dto.last_name,
             class_id = dto.class_id,
             password_hash=dto.password_hash,
@@ -41,3 +45,4 @@ class StudentService:
         if not obj:
             raise CleverCheckBaseError(student_id)
         return obj
+

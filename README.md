@@ -1,5 +1,12 @@
 # CleverCheck
 
+
+## Technology Stack
+
+- Frontend: React + TypeScript
+- Backend: python
+- Database: SQL Server
+
 ## TL;DR
 CleverCheck is a smart system for automatically grading tests with open-ended questions. It combines a React + TypeScript frontend with a Python Flask backend, backed by SQL Server and a local SentenceTransformer model.
 

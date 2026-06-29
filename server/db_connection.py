@@ -5,20 +5,20 @@ import os
 import logging
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, Session
-from models.models import Base
+from models import Base
 
 logger = logging.getLogger(__name__)
 
 # ── הרכבת Connection String ──────────────────────────────────
-_SERVER   = os.getenv('DB_SERVER',   r'localhost\SQLEXPRESS')
-_DATABASE = os.getenv('DB_NAME',     'CleverCheckDB')
-_DRIVER   = os.getenv('DB_DRIVER',   'ODBC+Driver+17+for+SQL+Server')
+from urllib.parse import quote_plus
 
-DATABASE_URL = (
-    f"mssql+pyodbc://@{_SERVER}/{_DATABASE}"
-    f"?driver={_DRIVER}&Trusted_Connection=yes"
-)
+_SERVER = os.getenv('DB_SERVER', r'localhost\SQLEXPRESS')
+_DATABASE = os.getenv('DB_NAME', 'CleverCheckDB')
+_DRIVER = os.getenv('DB_DRIVER', 'ODBC Driver 17 for SQL Server')
 
+params = quote_plus(f"DRIVER={_DRIVER};SERVER={_SERVER};DATABASE={_DATABASE};Trusted_Connection=yes")
+
+DATABASE_URL = f"mssql+pyodbc:///?odbc_connect={params}"
 # ── Engine ───────────────────────────────────────────────────
 engine = create_engine(
     DATABASE_URL,

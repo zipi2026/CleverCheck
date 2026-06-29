@@ -30,12 +30,13 @@ def add_option():
 @options_blueprint.route('', methods=['GET'])
 def get_options():
     data = service.get_all_options()
+    print(data)
     return jsonify([
         {
-            'id': o.OptionID,
-            'optionNumber': o.OptionNumber,
-            'questionID': o.QuestionID,
-            'optionText': o.OptionText
+            'id': o.id,
+            'optionNumber': o.option_number,
+            'questionID': o.question_id,
+            'optionText': o.option_text
         }
         for o in data
     ])
@@ -45,10 +46,10 @@ def get_options():
 def get_option(option_id):
     o = service.get_option_by_id(option_id)
     return jsonify({
-        'id': o.OptionID,
-        'optionNumber': o.OptionNumber,
-        'questionID': o.QuestionID,
-        'optionText': o.OptionText
+        'id': o.id,
+        'optionNumber': o.option_number,
+        'questionID': o.question_id,
+        'optionText': o.option_text
     })
 
 

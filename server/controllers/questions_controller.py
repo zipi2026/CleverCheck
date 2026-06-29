@@ -54,8 +54,9 @@ def get_question(question_id):
         'questionTypeID': q.question_type_id,
         'maxScore': q.max_score
     })
-
-
+# @questions_blueprint.route('/exam/<int:question_id>', methods=['GET'])
+# def get_questions(self, exam_id):
+#     return self.repo.get_questions_by_exam_id(exam_id)
 @questions_blueprint.route('/<int:question_id>', methods=['PUT'])
 def update_question(question_id):
     dto = QuestionDTO(**request.get_json())

@@ -27,8 +27,8 @@ export const authService = {
     );
 
     return {
-      studentId: Number(payload.user_id ?? 0),
-      name: payload.username ?? 'סטודנט',
+      studentId: Number(payload.student_id ?? 0),
+      name: payload.student_name ?? 'סטודנט',
       classId: 1,
     };
   },
@@ -39,7 +39,7 @@ export const authService = {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: payload.id,
+        student_name: payload.id,
         password: payload.password,
       }),
     });

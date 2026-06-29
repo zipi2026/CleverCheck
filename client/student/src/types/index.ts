@@ -1,4 +1,4 @@
-export type ExamStatus = 'Active' | 'InProgress' | 'Submitted' | 'Graded' | 'Closed';
+export type ExamStatus = 'Active' | 'InProgress' | 'Submitted' | 'Draft' | 'Closed';
 export type QuestionType = 'MCQ' | 'TEXT';
 export type QuestionMarkStatus = 'none' | 'in-progress' | 'review';
 
